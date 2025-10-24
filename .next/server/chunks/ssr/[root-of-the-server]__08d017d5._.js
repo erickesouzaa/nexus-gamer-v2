@@ -38,7 +38,7 @@ module.exports = mod;
 "[project]/utils/supabase-server-data.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// utils/supabase-server-data.ts (CLIENTE APENAS PARA LEITURA)
+// utils/supabase-server-data.ts (CÓDIGO COMPLETO COM LEITURA CORRETA)
 __turbopack_context__.s([
     "createServerSupabaseClientData",
     ()=>createServerSupabaseClientData
@@ -51,6 +51,7 @@ function createServerSupabaseClientData() {
     const cookieStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cookies"])();
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$ssr$2f$dist$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createServerClient"])(("TURBOPACK compile-time value", "https://bjunxikdmmckgdgpslfl.supabase.co"), ("TURBOPACK compile-time value", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJqdW54aWtkbW1ja2dkZ3BzbGZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTQwMjYsImV4cCI6MjA3NjI5MDAyNn0.8UTamn2Pr5MCJDeePx2qRdQFbAm5fb9kzBvPEDZgzec"), {
         cookies: {
+            // SOLUÇÃO FINAL: Apenas retorna o valor do cookie (sem JSON.parse)
             get (name) {
                 return cookieStore.get(name)?.value;
             }

@@ -1,4 +1,4 @@
-// utils/supabase-server-data.ts (CLIENTE APENAS PARA LEITURA)
+// utils/supabase-server-data.ts (CÓDIGO COMPLETO COM LEITURA CORRETA)
 
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
@@ -11,8 +11,11 @@ export function createServerSupabaseClientData() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) { return cookieStore.get(name)?.value; },
-        // set, remove e getAll são omitidos para que o Next.js não reclame de modificação no layout
+        // SOLUÇÃO FINAL: Apenas retorna o valor do cookie (sem JSON.parse)
+        get(name) {
+          return cookieStore.get(name)?.value; 
+        },
+        // As funções set e remove são omitidas (pois este é o cliente de leitura)
       },
     }
   );
