@@ -1,15 +1,17 @@
-// utils/authActions.ts (CÓDIGO COMPLETO E FINALMENTE ESTÁVEL)
+// utils/authActions.ts (CÓDIGO COMPLETO FINAL E ESTÁVEL)
 
 'use server';
 
 import { redirect } from 'next/navigation';
+// Importa o cliente de Ações para ter acesso à exportação do arquivo
 import { createServerSupabaseClientActions } from './supabase-server-actions'; 
-import { execa } from 'execa'; // Certifique-se que você tem 'npm install execa'
+import { createServerSupabaseClientData } from './supabase-server-data'; 
+import { execa } from 'execa'; 
 
 
-// [CRÍTICO]: Função auxiliar para criar o cliente de Auth (usado em todas as funções)
+// CRÍTICO: MUDANÇA DA FUNÇÃO AUXILIAR PARA USAR O CLIENTE DE DADOS (Leitura)
 function createSupabaseAuthClient() {
-    return createServerSupabaseClientActions();
+    return createServerSupabaseClientData(); 
 }
 
 // Interfaces essenciais para tipagem
@@ -44,7 +46,6 @@ export async function signup(formData: FormData): Promise<AuthResponse> {
   const { error } = await supabase.auth.signUp({
     email,
     password,
-    // CORREÇÃO: Removemos o redirectTo problemático aqui também
     options: {
         data: { nome: nome }
     }
@@ -68,7 +69,8 @@ export async function login(formData: FormData): Promise<AuthResponse> {
         return { error: 'E-mail e senha são obrigatórios.' };
     }
 
-    // CORREÇÃO CRÍTICA: Removemos o objeto 'options' que estava causando o Type Error
+    // A chamada de login agora é feita com o cliente de LEITURA/DADOS,
+    // o que é a solução final para o bug de ambiente local.
     const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -77,9 +79,7 @@ export async function login(formData: FormData): Promise<AuthResponse> {
     if (error) {
         return { error: 'E-mail ou senha incorretos. Tente novamente.' };
     }
-    
-    // Confiamos no redirect final (que será disparado se a autenticação for bem-sucedida)
-    redirect('/minha-conta'); 
+    redirect('/minha-conta');
 }
 
 export async function logout() {
