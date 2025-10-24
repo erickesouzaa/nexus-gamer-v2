@@ -44,6 +44,7 @@ export async function signup(formData: FormData): Promise<AuthResponse> {
   const { error } = await supabase.auth.signUp({
     email,
     password,
+    // CORREÇÃO: Removemos o redirectTo problemático aqui também
     options: {
         data: { nome: nome }
     }
@@ -67,20 +68,18 @@ export async function login(formData: FormData): Promise<AuthResponse> {
         return { error: 'E-mail e senha são obrigatórios.' };
     }
 
+    // CORREÇÃO CRÍTICA: Removemos o objeto 'options' que estava causando o Type Error
     const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
-        // CORREÇÃO CRÍTICA: Ignora o erro de tipagem e força o redirect local
-        // @ts-ignore 
-        options: {
-            redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/minha-conta`
-        }
     });
 
     if (error) {
         return { error: 'E-mail ou senha incorretos. Tente novamente.' };
     }
-    redirect('/minha-conta');
+    
+    // Confiamos no redirect final (que será disparado se a autenticação for bem-sucedida)
+    redirect('/minha-conta'); 
 }
 
 export async function logout() {
@@ -90,7 +89,7 @@ export async function logout() {
 }
 
 // ------------------------------------
-// --- FUNÇÃO DE CHECKOUT/ADMIN ---
+// --- FUNÇÕES DE CHECKOUT/ADMIN ---
 // ------------------------------------
 
 export async function createOrder(
