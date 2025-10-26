@@ -9,18 +9,17 @@ import MobileSearchButton from './MobileSearchButton';
 
 
 export default async function Navbar() {
-  // O Next.js Server Component precisa estar aqui para ler o usuário
   const supabaseServer = createServerSupabaseClientData(); 
   const { data: { user } } = await supabaseServer.auth.getUser();
   const isLoggedIn = !!user; 
   const isAdmin = user && user.app_metadata && user.app_metadata.role === 'admin';
 
   return (
-    // Fundo PRETO (bg-black) e texto BRANCO (text-white), FIXO
+    // NAVBAR COM FUNDO PRETO FIXO E TEXTO BRANCO
     <nav className="bg-black text-white border-b border-gray-700 p-4 sticky top-0 z-20">
       <div className="max-w-7xl mx-auto flex items-center justify-between h-12"> 
         
-        {/* 1. LOGO: VOLTAMOS PARA O TEXTO SIMPLES E VISÍVEL */}
+        {/* 1. LOGO: TEXTO SIMPLES E VISÍVEL */}
         <Link href="/" className="text-2xl font-extrabold text-white hover:text-blue-500 transition duration-150 mr-4">
           NEXUS GAMES
         </Link>

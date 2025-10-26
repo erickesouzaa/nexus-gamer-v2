@@ -1,4 +1,4 @@
-// app/layout.tsx (CÓDIGO COMPLETO FINAL)
+// app/layout.tsx (CÓDIGO 100% CORRIGIDO E FINAL)
 
 import type { Metadata } from 'next';
 import './globals.css'; 
@@ -18,6 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className="h-full"> 
+      {/* BODY LIMPO - O CSS GLOBAL DEFINIRÁ O FUNDO ESCURO */}
       <body className="min-h-full"> 
         <ClientProvider> 
           <Navbar /> 

@@ -1,11 +1,10 @@
-/* app/globals.css (FINAL) */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* FORÇA O FUNDO ESCURO NO ROOT */
+/* GARANTIMOS O FUNDO ESCURO E TEXTO CLARO GLOBALMENTE */
 body {
-    background-color: black; 
-    color: white; 
+    background-color: #1a1a1a; /* Fundo cinza muito escuro */
+    color: #e2e8f0; /* Texto claro */
     min-height: 100vh;
 }
