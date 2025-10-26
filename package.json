@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build", 
-    "start": "next start",
-    "lint": "next lint"
-  },
+  "dev": "node --max-old-space-size=8192 ./node_modules/next/dist/bin/next dev --turbopack", 
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint"
+},
   "dependencies": {
     "@supabase/ssr": "0.1.0",
     "@supabase/supabase-js": "2.75.1",
